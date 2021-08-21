@@ -2,15 +2,19 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using BenchmarkDotNet.Running;
 
 namespace console_word_frequency
 {
-    class Program
+    public class Program
     {
+        private static string DefaultPath = "files";
+        private static string DefaultOutputFile = "output";
+
         static async Task Main()
         {
-            var defaultPath = "files";
-            var defaultOutputFile = "output";
+            var summary = BenchmarkRunner.Run<Benchmarking>();
+            
             var repeatKeys = new[] { 'y', 'Y', 'н', 'Н' };
 
             var close = true;
@@ -22,8 +26,8 @@ namespace console_word_frequency
 
             do
             {
-                var path = ReadParam($"Enter the files directory (or '{defaultPath}' will be used): ", defaultPath);
-                var outputFileName = ReadParam($"Enter the output file name (or '{defaultOutputFile}' will be used): ", defaultOutputFile);
+                var path = ReadParam($"Enter the files directory (or '{DefaultPath}' will be used): ", DefaultPath);
+                var outputFileName = ReadParam($"Enter the output file name (or '{DefaultOutputFile}' will be used): ", DefaultOutputFile);
 
                 //await generator.GenerateFilesAsync(path, 100, 10, cancellationToken);
                 var unsorted = await counter.CountWords(path, outputFileName, cancellationToken);

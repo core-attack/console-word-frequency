@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -12,9 +13,17 @@ namespace console_word_frequency
             Words = words;
         }
 
+        public WordCounterResult(string outputFile, ConcurrentDictionary<string, int> words)
+        {
+            OutputFile = outputFile;
+            ConcurrentWords = words;
+        }
+
         public string OutputFile { get; private set; }
 
         public Dictionary<string, int> Words { get; private set; }
+
+        public ConcurrentDictionary<string, int> ConcurrentWords { get; private set; }
 
         public IOrderedEnumerable<KeyValuePair<string, int>> SortedWords { get; set; }
 

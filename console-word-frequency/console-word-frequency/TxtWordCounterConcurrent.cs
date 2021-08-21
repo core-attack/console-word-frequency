@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -6,15 +7,14 @@ using System.Threading.Tasks;
 
 namespace console_word_frequency
 {
-    
-    public class TxtWordCounter : IWordCounter
+    public class TxtWordCounterConcurrent : IWordCounter
     {
         private string Extension = ".txt";
-        private readonly Dictionary<string, int> wordsCount;
+        private readonly ConcurrentDictionary<string, int> wordsCount;
 
-        public TxtWordCounter()
+        public TxtWordCounterConcurrent ()
         {
-            wordsCount = new Dictionary<string, int>();
+            wordsCount = new ConcurrentDictionary<string, int>();
         }
 
         public async Task<WordCounterResult> CountWords(string path, string output, CancellationToken cancellationToken)
@@ -30,11 +30,14 @@ namespace console_word_frequency
             }
 
             var files = Directory.EnumerateFiles(path, $"*{Extension}", new EnumerationOptions() { MatchType = MatchType.Simple, RecurseSubdirectories = true });
+            var tasks = new List<Task>();
 
             foreach (var file in files)
             {
-                await Calculate(file);
+                tasks.Add(Calculate(file));
             }
+
+            await Task.WhenAll(tasks);
 
             return new WordCounterResult(output, wordsCount);
         }
@@ -57,7 +60,7 @@ namespace console_word_frequency
                 }
                 else
                 {
-                    wordsCount.Add(word, 1);
+                    wordsCount.TryAdd(word, 1);
                 }
             }
         }
