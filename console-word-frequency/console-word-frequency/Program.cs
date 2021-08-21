@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,29 +15,21 @@ namespace console_word_frequency
 
             var close = true;
 
-            var generator = new TxtFileGenerator();
+            IFileGenerator generator = new TxtFileGenerator();
+            IWordCounter counter = new TxtWordCounter();
+            IWordSorter sorter = new WordSorter();
+            var cancellationToken = new CancellationToken();
 
             do
             {
-                Console.Write($"Enter the files directory (or '{defaultPath}' will be used): ");
+                var path = ReadParam($"Enter the files directory (or '{defaultPath}' will be used): ", defaultPath);
+                var outputFileName = ReadParam($"Enter the output file name (or '{defaultOutputFile}' will be used): ", defaultOutputFile);
 
-                var path = Console.ReadLine();
+                //await generator.GenerateFilesAsync(path, 100, 10, cancellationToken);
+                var unsorted = await counter.CountWords(path, outputFileName, cancellationToken);
+                var sorted = await sorter.Sort(unsorted);
 
-                if (string.IsNullOrEmpty(path))
-                {
-                    path = defaultPath;
-                }
-
-                Console.Write($"Enter the output file name (or '{defaultOutputFile}' will be used): ");
-
-                var outputFileName = Console.ReadLine();
-
-                if (string.IsNullOrEmpty(outputFileName))
-                {
-                    outputFileName = defaultOutputFile;
-                }
-
-                //await generator.GenerateFilesAsync(path, 100, 10, new CancellationToken());
+                await WriteResult(sorted, cancellationToken);
 
                 Console.Write($"One more time? [y/n]");
 
@@ -45,6 +38,18 @@ namespace console_word_frequency
                 close = Array.Exists(repeatKeys, c => key.Equals(c));
             }
             while (close);
+        }
+
+        private static async Task WriteResult(WordCounterResult stats, CancellationToken cancellationToken)
+        {
+            await File.WriteAllTextAsync(stats.OutputFile, stats.GetPrettyStatistic(), cancellationToken);
+        }
+
+        private static string ReadParam(string message, string defaultValue)
+        {
+            Console.Write(message);
+            var param = Console.ReadLine();
+            return string.IsNullOrEmpty(param) ? defaultValue : param;
         }
     }
 }
