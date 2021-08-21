@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "dgSpecHash": "3di3UwW1PBrCyioy6kPdgXlZC9E5i5+AzU4F/rcdOGTd5EejDbPv/Vhp2z6Yf9e3aWpRrNIJsK2+3zq1I3UO6Q==",
+  "success": true,
+  "projectFilePath": "/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/console-word-frequency.csproj",
+  "expectedPackageFiles": [
+    "/Users/hamster/.nuget/packages/lorem.net/1.0.6/lorem.net.1.0.6.nupkg.sha512"
+  ],
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Lorem.NET 1.0.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Lorem.NET",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}

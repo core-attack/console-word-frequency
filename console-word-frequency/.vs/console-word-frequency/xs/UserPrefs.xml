@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{230401FA-2A1C-4B6B-A8E3-65CAD645705E}|Default">
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="console-word-frequency/Program.cs" Line="39" Column="19" />
+      <File FileName="console-word-frequency/FileGenerator.cs" Line="10" Column="34" />
+      <File FileName="console-word-frequency/IFileGenerator.cs" Line="8" Column="9" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="console-word-frequency" expanded="True">
+            <Node name="console-word-frequency" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.console-word-frequency PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

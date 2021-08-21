@@ -1,0 +1,108 @@
+{
+  "version": 3,
+  "targets": {
+    "net5.0": {
+      "Lorem.NET/1.0.6": {
+        "type": "package",
+        "compile": {
+          "lib/net40/LoremNET.dll": {}
+        },
+        "runtime": {
+          "lib/net40/LoremNET.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Lorem.NET/1.0.6": {
+      "sha512": "Td4zjQanubIpsTXX5YuafC7kgr7bcFbSewAbMuHdyIddkssUQ1Bc0o846Fr4WybZ2y9GRI9RLej6VBPZAHGwOw==",
+      "type": "package",
+      "path": "lorem.net/1.0.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/LoremNET.dll",
+        "lorem.net.1.0.6.nupkg.sha512",
+        "lorem.net.nuspec"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net5.0": [
+      "Lorem.NET >= 1.0.6"
+    ]
+  },
+  "packageFolders": {
+    "/Users/hamster/.nuget/packages/": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/console-word-frequency.csproj",
+      "projectName": "console-word-frequency",
+      "projectPath": "/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/console-word-frequency.csproj",
+      "packagesPath": "/Users/hamster/.nuget/packages/",
+      "outputPath": "/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "/Users/hamster/.config/NuGet/NuGet.Config"
+      ],
+      "originalTargetFrameworks": [
+        "net5.0"
+      ],
+      "sources": {
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net5.0": {
+        "targetAlias": "net5.0",
+        "dependencies": {
+          "Lorem.NET": {
+            "target": "Package",
+            "version": "[1.0.6, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Lorem.NET 1.0.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework 'net5.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Lorem.NET",
+      "targetGraphs": [
+        "net5.0"
+      ]
+    }
+  ]
+}

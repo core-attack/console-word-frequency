@@ -1,0 +1,17 @@
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/console-word-frequency.deps.json
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/console-word-frequency.runtimeconfig.json
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/console-word-frequency.runtimeconfig.dev.json
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/console-word-frequency.dll
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/ref/console-word-frequency.dll
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/console-word-frequency.pdb
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.csproj.AssemblyReference.cache
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.GeneratedMSBuildEditorConfig.editorconfig
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.AssemblyInfoInputs.cache
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.AssemblyInfo.cs
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.csproj.CoreCompileInputs.cache
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.dll
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/ref/console-word-frequency.dll
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.pdb
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.genruntimeconfig.cache
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/bin/Debug/net5.0/LoremNET.dll
+/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/obj/Debug/net5.0/console-word-frequency.csproj.CopyComplete
