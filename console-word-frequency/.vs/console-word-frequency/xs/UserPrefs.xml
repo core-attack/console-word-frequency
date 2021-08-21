@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{230401FA-2A1C-4B6B-A8E3-65CAD645705E}|Default">
   <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="console-word-frequency/Program.cs" Line="39" Column="19" />
-      <File FileName="console-word-frequency/FileGenerator.cs" Line="10" Column="34" />
+      <File FileName="console-word-frequency/Program.cs" Line="33" Column="1" />
+      <File FileName="console-word-frequency/FileGenerator.cs" Line="48" Column="1" />
       <File FileName="console-word-frequency/IFileGenerator.cs" Line="8" Column="9" />
     </Files>
     <Pads>
@@ -25,7 +25,9 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/hamster/Desktop/git/console-word-frequency/console-word-frequency/console-word-frequency/TxtFileGenerator.cs" relfile="console-word-frequency/TxtFileGenerator.cs" line="24" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

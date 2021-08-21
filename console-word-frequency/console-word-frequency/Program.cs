@@ -36,7 +36,7 @@ namespace console_word_frequency
                     outputFileName = defaultOutputFile;
                 }
 
-                //await generator.GenerateFilesAsync(path, 100, new CancellationToken());
+                //await generator.GenerateFilesAsync(path, 100, 10, new CancellationToken());
 
                 Console.Write($"One more time? [y/n]");
 
