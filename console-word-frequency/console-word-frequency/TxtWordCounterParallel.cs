@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace console_word_frequency
 {
-    public class TxtWordCounterConcurrent : IWordCounter
+    public class TxtWordCounterParallel : IWordCounter
     {
         private string Extension = ".txt";
         private readonly ConcurrentDictionary<string, int> wordsCount;
 
-        public TxtWordCounterConcurrent ()
+        public TxtWordCounterParallel()
         {
             wordsCount = new ConcurrentDictionary<string, int>();
         }
@@ -33,45 +33,19 @@ namespace console_word_frequency
             var files = Directory.EnumerateFiles(path, $"*{Extension}", new EnumerationOptions() { MatchType = MatchType.Simple, RecurseSubdirectories = true });
             var tasks = new List<Task>();
 
-            foreach (var file in files)
-            {
-                tasks.Add(Calculate2(file));
-            }
-
-            await Task.WhenAll(tasks);
+            Parallel.ForEach(
+                files,
+                new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                async (file, state, index) =>
+                {
+                    await Calculate(file);
+                }
+            );
 
             return new WordCounterResult(output, wordsCount);
         }
 
         private async Task Calculate(string filePath)
-        {
-            using var sr = File.OpenText(filePath);
-            var s = string.Empty;
-
-            while ((s = sr.ReadLine()) != null)
-            {
-                var words = Regex.Split(string.Empty, @"\W+");
-
-                foreach (var word in words)
-                {
-                    if (string.IsNullOrEmpty(word))
-                    {
-                        continue;
-                    }
-
-                    if (wordsCount.ContainsKey(word))
-                    {
-                        wordsCount[word]++;
-                    }
-                    else
-                    {
-                        wordsCount.TryAdd(word, 1);
-                    }
-                }
-            }
-        }
-
-        private async Task Calculate2(string filePath)
         {
             var s = await File.ReadAllTextAsync(filePath);
             var words = Regex.Split(s, @"\W+");
