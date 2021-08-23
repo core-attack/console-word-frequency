@@ -30,14 +30,17 @@ namespace ConsoleWordFrequency.Generators
             await Task.WhenAll(tasks);
         }
 
-        public async Task GenerateFileAsync(string path, string content, CancellationToken cancellationToken)
+        public async Task<string> GenerateFileAsync(string path, string content, CancellationToken cancellationToken)
         {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            await File.WriteAllTextAsync(Path.Combine(path, GetFileName(DateTime.UtcNow.Ticks.ToString())), content, Encoding, cancellationToken);
+            var fileName = Path.Combine(path, GetFileName(DateTime.UtcNow.Ticks.ToString()));
+            await File.WriteAllTextAsync(fileName, content, Encoding, cancellationToken);
+
+            return fileName;
         }
 
         public void GenerateFile(string path, string filename, string content)

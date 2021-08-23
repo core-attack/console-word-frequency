@@ -58,9 +58,21 @@ namespace ConsoleWordFrequency
                     var key = Console.ReadKey();
                     close = Array.Exists(repeatKeys, c => key.KeyChar.Equals(c));
                 }
+                catch (PathTooLongException)
+                {
+                    Console.WriteLine("Path is too long");
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Console.WriteLine($"It seems that you don't have sufficient privilege. Details: {e.Message}");
+                }
+                catch (IOException e)
+                {
+                    Console.WriteLine($"Please check path or output file name. Details: {e.Message}");
+                }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Unexpected exception occured: {e.Message}, {e.StackTrace}");
+                    Console.WriteLine($"Unexpected exception occurred: {e.Message}, {e.StackTrace}");
                 }
             } while (close);
         }

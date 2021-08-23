@@ -7,7 +7,7 @@ namespace ConsoleWordFrequency.Generators
     {
         string GetFileName(string fileName);
 
-        Task GenerateFileAsync(string path, string content, CancellationToken cancellationToken);
+        Task<string> GenerateFileAsync(string path, string content, CancellationToken cancellationToken);
 
         void GenerateFile(string path, string filename, string content);
 
