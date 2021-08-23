@@ -6,38 +6,50 @@ using System.Threading;
 using System.Threading.Tasks;
 using LoremNET;
 
-namespace console_word_frequency
+namespace ConsoleWordFrequency.Generators
 {
-    public class TxtFileGenerator : IFileGenerator
+    public abstract class FileGenerator
     {
-        public TxtFileGenerator()
-        {
-        }
+        public virtual string GetFileName(string fileName) => $"{fileName}.{Extension}";
 
-        public async Task GenerateFilesAsync(string path, int filesCount, int levels, CancellationToken cancellationToken)
+        protected string Extension { get; set; }
+
+        protected Encoding Encoding { get; set; }
+
+        public virtual async Task GenerateFilesAsync(string path, int filesCount, int levels, int wordsCount, int sentencesCount, CancellationToken cancellationToken)
         {
             var tasks = new List<Task>();
 
             for (int i = 0; i < filesCount; i++)
             {
                 var p = PathCombine(path, GetSubPath((int)Lorem.Number(0, levels)));
-                tasks.Add(GenerateFileAsync(p, cancellationToken));
+                var content = Lorem.Paragraph(wordsCount, sentencesCount);
+                tasks.Add(GenerateFileAsync(p, content, cancellationToken));
             }
 
             await Task.WhenAll(tasks);
         }
 
-        public async Task GenerateFileAsync(string path, CancellationToken cancellationToken)
+        public async Task GenerateFileAsync(string path, string content, CancellationToken cancellationToken)
         {
-            var fileName = $"{DateTime.UtcNow.Ticks}.txt";
-
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
             }
 
-            await File.WriteAllLinesAsync(Path.Combine(path, fileName), Lorem.Paragraphs(10, 1000, 1, 100, 1, 10), cancellationToken);
+            await File.WriteAllTextAsync(Path.Combine(path, GetFileName(DateTime.UtcNow.Ticks.ToString())), content, Encoding, cancellationToken);
         }
+
+        public void GenerateFile(string path, string filename, string content)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            File.WriteAllText(Path.Combine(path, GetFileName(filename)), content, Encoding);
+        }
+
 
         private string GetSubPath(int level)
         {
@@ -48,7 +60,7 @@ namespace console_word_frequency
 
             var sb = new StringBuilder();
 
-            for(var i = 0; i < level; i++)
+            for (var i = 0; i < level; i++)
             {
                 sb.AppendFormat(@"/{0}", i);
             }

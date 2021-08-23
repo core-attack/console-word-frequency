@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
+using ConsoleWordFrequency.Models;
 
-namespace console_word_frequency
+namespace ConsoleWordFrequency.Sorters
 {
     public interface IWordSorter
     {
