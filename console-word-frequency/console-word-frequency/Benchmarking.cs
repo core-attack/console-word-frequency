@@ -5,6 +5,8 @@ using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using ConsoleWordFrequency.Counters;
 using ConsoleWordFrequency.Generators;
+using ConsoleWordFrequency.Models;
+using ConsoleWordFrequency.Sorters;
 using LoremNET;
 
 namespace ConsoleWordFrequency
@@ -13,7 +15,6 @@ namespace ConsoleWordFrequency
     //[SimpleJob(RuntimeMoniker.NetCoreApp30)]
     //[SimpleJob(RuntimeMoniker.Net48)]
     [SimpleJob(RuntimeMoniker.Net50)]
-    [SimpleJob(RuntimeMoniker.Net60)]
     //[SimpleJob(RuntimeMoniker.CoreRt50)]
     //[SimpleJob(RuntimeMoniker.CoreRt60)]
     //[SimpleJob(RuntimeMoniker.Mono)]
@@ -23,31 +24,47 @@ namespace ConsoleWordFrequency
         private static string DefaultPath = @"C:\temp\files";
         private static string DefaultOutputFile = "output";
         private static string DefaultInputFileName = "input";
-        private readonly IWordCounter _counter;
-        private readonly IWordCounter _counterConc;
+        private readonly IWordCounter<WordCounterResult> _counter;
+        private readonly IWordCounter<WordCounterConcurrentResult> _counterConc;
         private readonly IFileGenerator _generator;
+        private readonly IWordSorter _sorter;
+        private readonly WordCounterConcurrentResult Result;
 
         public Benchmarking()
         {
             _generator = new TxtFileGenerator();
-            _counter = new TxtWordCounter();
+            _counter = new TxtWordCounter<WordCounterResult>();
             _counterConc = new TxtWordCounterConcurrent();
+            _sorter = new WordSorter();
 
-            var content = Lorem.Paragraph(1000000, 10000);
-            _generator.GenerateFile(DefaultPath, DefaultInputFileName, content);
+            //var content = Lorem.Paragraph(10000, 100);
+
+            //var sb = new StringBuilder();
+
+            //for (int i = 0; i < 10000; i++)
+            //{
+            //    sb.Append($"value{i} ");
+            //}
+
+            //_generator.GenerateFile(DefaultPath, DefaultInputFileName, sb.ToString());
+
+            Result = _counterConc.CountWords(DefaultPath, DefaultOutputFile, new CancellationToken()).Result;
         }
     
 
-        [Benchmark]
+        //[Benchmark]
         public async Task Base() => await _counter.CountWords(DefaultPath, DefaultOutputFile, new CancellationToken());
 
-        [Benchmark]
+        //[Benchmark]
         public async Task Concurrent() => await _counterConc.CountWords(DefaultPath, DefaultOutputFile, new CancellationToken());
 
         //[Benchmark]
-        public async Task FileReadAllTextAsync() => await _counter.Calculate(Path.Combine(DefaultPath, _generator.GetFileName(DefaultInputFileName)), new CancellationToken());
+        public async Task Split() => await _counter.Calculate(Path.Combine(DefaultPath, _generator.GetFileName(DefaultInputFileName)), new CancellationToken());
 
         //[Benchmark]
-        public async Task FileOpenText() => await _counterConc.Calculate(Path.Combine(DefaultPath, _generator.GetFileName(DefaultInputFileName)), new CancellationToken());
+        public async Task Regex() => await _counterConc.Calculate(Path.Combine(DefaultPath, _generator.GetFileName(DefaultInputFileName)), new CancellationToken());
+
+        //[Benchmark]
+        public void Sort() => _sorter.Sort(Result.ConcurrentWords);
     }
 }

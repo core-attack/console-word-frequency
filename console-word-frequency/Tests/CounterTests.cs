@@ -15,7 +15,7 @@ namespace Tests
 {
     public class CounterTests
     {
-        private readonly IWordCounter _counter;
+        private readonly IWordCounter<WordCounterConcurrentResult> _counter;
         private readonly IFileGenerator _generator;
 
         public CounterTests()
@@ -32,7 +32,7 @@ namespace Tests
                     "files", 
                     "one two three", 
                     "output", 
-                    new WordCounterResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
+                    new WordCounterConcurrentResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
                     {
                         new ("ONE", 1),
                         new ("TWO", 1),
@@ -44,7 +44,7 @@ namespace Tests
                     "files",
                     "one two three ONE oNe\none\nTwo",
                     "output",
-                    new WordCounterResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
+                    new WordCounterConcurrentResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
                     {
                         new ("ONE", 4),
                         new ("TWO", 2),
@@ -56,7 +56,7 @@ namespace Tests
                     "files",
                     "ONE",
                     "output",
-                    new WordCounterResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
+                    new WordCounterConcurrentResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
                     {
                         new ("ONE", 1)
                     })),
@@ -66,7 +66,7 @@ namespace Tests
                     "files",
                     "one",
                     "output",
-                    new WordCounterResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
+                    new WordCounterConcurrentResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>()
                     {
                         new ("ONE", 1)
                     })),
@@ -76,7 +76,7 @@ namespace Tests
                     "files",
                     "",
                     "output",
-                    new WordCounterResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>())),
+                    new WordCounterConcurrentResult("output", new ConcurrentDictionary<string, long>(new List<KeyValuePair<string, long>>())),
                     new CancellationToken() };
             }
         }
@@ -101,14 +101,14 @@ namespace Tests
 
         [Theory]
         [MemberAutoMockData(nameof(Queries))]
-        public async Task GivenNotExistedOutput_WhenCountWordsIsCalled_ThenOutputCreated(string path, string content, string output, WordCounterResult expectedResult, CancellationToken cancellationToken)
+        public async Task GivenNotExistedOutput_WhenCountWordsIsCalled_ThenOutputCreated(string path, string content, string output, WordCounterConcurrentResult expectedResult, CancellationToken cancellationToken)
         {
             var fileName = await _generator.GenerateFileAsync(path, content, cancellationToken);
             var result = await _counter.CountWords(path, output, cancellationToken);
 
-            foreach (var resultConcurrentWord in result.ConcurrentWords)
+            foreach (var resultConcurrentWord in result.Words)
             {
-                expectedResult.ConcurrentWords[resultConcurrentWord.Key].Should().Be(resultConcurrentWord.Value);
+                expectedResult.Words[resultConcurrentWord.Key].Should().Be(resultConcurrentWord.Value);
             }
 
             File.Delete(fileName);

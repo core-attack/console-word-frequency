@@ -1,10 +1,10 @@
-﻿using System.Threading.Tasks;
-using ConsoleWordFrequency.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleWordFrequency.Sorters
 {
     public interface IWordSorter
     {
-        Task<WordCounterResult> Sort(WordCounterResult result);
+        IOrderedEnumerable<KeyValuePair<string, long>> Sort(IReadOnlyDictionary<string, long> dictionary);
     }
 }

@@ -22,7 +22,7 @@ namespace ConsoleWordFrequency
 
             var serviceProvider = new ServiceCollection()
                 .AddTransient<IFileGenerator, TxtFileGenerator>()
-                .AddTransient<IWordCounter, TxtWordCounterConcurrent>()
+                .AddTransient<IWordCounter<WordCounterConcurrentResult>, TxtWordCounterConcurrent>()
                 .AddTransient<IWordSorter, WordSorter>()
                 .BuildServiceProvider();
 
@@ -36,8 +36,23 @@ namespace ConsoleWordFrequency
             var repeatKeys = new[] { 'y', 'Y', 'н', 'Н' };
             var close = true;
             var generator = serviceProvider.GetService<IFileGenerator>();
-            var counter = serviceProvider.GetService<IWordCounter>();
+            var counter = serviceProvider.GetService<IWordCounter<WordCounterConcurrentResult>>();
             var sorter = serviceProvider.GetService<IWordSorter>();
+
+            if (counter == null)
+            {
+                throw new ArgumentNullException(nameof(counter));
+            }
+
+            if (sorter == null)
+            {
+                throw new ArgumentNullException(nameof(sorter));
+            }
+
+            if (generator == null)
+            {
+                throw new ArgumentNullException(nameof(generator));
+            }
 
             do
             {
@@ -48,11 +63,11 @@ namespace ConsoleWordFrequency
                         ReadParam($"Enter the output file name (or '{DefaultOutputFile}' will be used): ",
                             DefaultOutputFile);
 
-                    //await generator.GenerateFilesAsync(path, 100, 10, 1000, 100,cancellationToken);
-                    var unsorted = await counter.CountWords(path, outputFileName, cancellationToken);
-                    var sorted = await sorter.Sort(unsorted);
+                    //await generator.GenerateFilesAsync(path, 100, 10, 1000, 100, cancellationToken);
+                    var result = await counter.CountWords(path, outputFileName, cancellationToken);
+                    result.SortedWords = sorter.Sort(result.ConcurrentWords);
 
-                    await WriteResult(sorted, cancellationToken);
+                    await WriteResult(result, cancellationToken);
 
                     Console.WriteLine($"One more time? [y/n]");
                     var key = Console.ReadKey();

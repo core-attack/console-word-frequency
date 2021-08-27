@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -13,22 +12,22 @@ namespace ConsoleWordFrequency.Models
             Words = words;
         }
 
-        public WordCounterResult(string outputFile, ConcurrentDictionary<string, long> words)
+        public WordCounterResult(string outputFile)
         {
             OutputFile = outputFile;
-            ConcurrentWords = words;
+        }
+
+        public WordCounterResult()
+        {
         }
 
         public string OutputFile { get; private set; }
 
-        public Dictionary<string, long> Words { get; private set; } = new Dictionary<string, long>();
+        public virtual IOrderedEnumerable<KeyValuePair<string, long>> SortedWords { get; set; }
 
-        public ConcurrentDictionary<string, long> ConcurrentWords { get; private set; } =
-            new ConcurrentDictionary<string, long>();
+        public virtual Dictionary<string, long> Words { get; private set; } = new Dictionary<string, long>();
 
-        public IOrderedEnumerable<KeyValuePair<string, long>> SortedWords { get; set; }
-
-        public string GetPrettyStatistic()
+        public virtual string GetPrettyStatistic()
         {
             if (!SortedWords.Any())
             {
@@ -43,6 +42,16 @@ namespace ConsoleWordFrequency.Models
             }
 
             return sb.ToString();
+        }
+
+        public virtual void SetOutputFile(string file)
+        {
+            OutputFile = file;
+        }
+
+        public virtual void SetWords(Dictionary<string, long> words)
+        {
+            Words = words;
         }
     }
 }

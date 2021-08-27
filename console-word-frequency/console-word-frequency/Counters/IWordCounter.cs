@@ -4,9 +4,9 @@ using ConsoleWordFrequency.Models;
 
 namespace ConsoleWordFrequency.Counters
 {
-    public interface IWordCounter
+    public interface IWordCounter<T> where T : WordCounterResult, new()
     {
-        Task<WordCounterResult> CountWords(string path, string output, CancellationToken cancellationToken);
+        Task<T> CountWords(string path, string output, CancellationToken cancellationToken);
 
         Task Calculate(string filePath, CancellationToken cancellationToken);
     }

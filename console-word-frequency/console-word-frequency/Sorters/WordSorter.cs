@@ -1,18 +1,13 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using ConsoleWordFrequency.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleWordFrequency.Sorters
 {
     public class WordSorter : IWordSorter
     {
-        public async Task<WordCounterResult> Sort(WordCounterResult result)
+        public IOrderedEnumerable<KeyValuePair<string, long>> Sort(IReadOnlyDictionary<string, long> dictionary)
         {
-            result.SortedWords = result.Words.Any() 
-                ? result.Words.OrderByDescending(x => x.Value) 
-                : result.ConcurrentWords.OrderByDescending(x => x.Value);
-
-            return result;
+            return dictionary.OrderByDescending(x => x.Value);
         }
     }
 }
